@@ -13,8 +13,7 @@ KEYWORDS="~amd64 ~x86"
 RDEPEND="sys-apps/attr:=
 		>=sys-apps/util-linux-2.18
 		sys-devel/gettext:="
-DEPEND="app-text/pandoc
-		${RDEPEND}"
+DEPEND="${RDEPEND}"
 
 src_install() {
 	emake DESTDIR="${D}" PREFIX="${EPREFIX%/}/usr" install
