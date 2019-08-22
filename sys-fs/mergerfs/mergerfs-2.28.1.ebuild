@@ -7,14 +7,25 @@ HOMEPAGE="https://github.com/trapexit/mergerfs"
 LICENSE="ISC"
 SLOT=0
 
-SRC_URI="https://github.com/trapexit/mergerfs/archive/${PV}.tar.gz -> ${P}.tar.gz"
-KEYWORDS="~amd64 ~x86"
+
+inherit git-r3
+SRC_URI=""
+EGIT_REPO_URI="https://github.com/trapexit/mergerfs"
+KEYWORDS=""
+
+TAG="${PV}"
+REFS="refs/tags/${TAG}" 
 
 RDEPEND="sys-apps/attr:=
 		>=sys-apps/util-linux-2.18
 		sys-devel/gettext:="
-DEPEND="app-text/pandoc
-		${RDEPEND}"
+DEPEND="${RDEPEND}"
+
+src_unpack() {
+   git-r3_fetch ${EGIT_REPO_URI} ${REFS} ${TAG}
+   git-r3_checkout ${EGIT_REPO_URI} ${WORKDIR}/${P} ${TAG}
+}
+
 
 src_install() {
 	emake DESTDIR="${D}" PREFIX="${EPREFIX%/}/usr" install
